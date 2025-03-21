@@ -7,6 +7,87 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+# DocConvert - PDF to Word Converter
+
+A Laravel application that converts PDF documents to Word format while preserving text styling and formatting.
+
+## Prerequisites
+
+To ensure optimal conversion quality that preserves formatting, you'll need to install one or more of these tools:
+
+### Option 1: LibreOffice (Recommended)
+
+LibreOffice provides the best conversion quality for preserving text styling from PDFs to Word documents.
+
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install libreoffice
+
+# macOS (using Homebrew)
+brew install --cask libreoffice
+
+# CentOS/RHEL
+sudo yum install libreoffice
+```
+
+### Option 2: Alternative Tools
+
+If LibreOffice isn't available, the app will fall back to these tools:
+
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install ghostscript poppler-utils calibre pdf2htmlex
+
+# macOS (using Homebrew)
+brew install ghostscript poppler calibre
+brew install pdf2htmlex --with-qt
+
+# CentOS/RHEL
+sudo yum install ghostscript poppler-utils calibre
+```
+
+## Installation
+
+1. Clone the repository
+2. Install PHP dependencies:
+   ```bash
+   composer install
+   ```
+3. Configure your environment variables:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+4. Create the storage directories:
+   ```bash
+   php artisan storage:link
+   mkdir -p storage/app/private/pdfs
+   mkdir -p storage/app/private/converted
+   chmod -R 775 storage/app/private
+   ```
+5. Start the development server:
+   ```bash
+   php artisan serve
+   ```
+
+## Usage
+
+1. Visit the application in your browser
+2. Upload a PDF file
+3. Click "Convert to Word"
+4. The application will process the file and provide a download of the converted Word document
+
+## Troubleshooting
+
+If the conversion result doesn't preserve formatting as expected:
+
+1. Verify that LibreOffice is correctly installed with `which soffice`
+2. Check the logs at `storage/logs/laravel.log` for conversion errors
+3. Make sure your server has sufficient memory for large document conversions
+4. Try with different PDF files to isolate if the issue is document-specific
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
