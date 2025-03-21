@@ -2,16 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DocumentConverterController;
+use App\Http\Controllers\FileConversionController;
 
-// Show conversion form
-Route::get('/', function () {
-    return view('convert-form');
-})->name('convert.form');
+// File conversion routes
+Route::get('/', [FileConversionController::class, 'index'])
+    ->name('file.index');
 
-// Document conversion routes
-Route::post('/convert/pdf-to-word', [DocumentConverterController::class, 'pdfToWordDownload'])
-    ->name('convert.pdf-to-word');
+Route::post('/', [FileConversionController::class, 'convert'])
+    ->name('file.convert');
 
-// API route for PDF to Word conversion
-Route::post('/api/convert/pdf-to-word', [DocumentConverterController::class, 'apiPdfToWord'])
-    ->name('api.convert.pdf-to-word');
+Route::get('/download', [FileConversionController::class, 'download'])
+    ->name('file.download');
